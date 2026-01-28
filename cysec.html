@@ -21,7 +21,7 @@
         body { font-family: 'Sora', sans-serif; background: var(--neutral-100); color: var(--text-dark); line-height: 1.618; }
 
         nav {
-            padding: 1rem 6%;
+            padding: 0.5rem 6%;
             background: rgba(255, 255, 255, 0.8);
             backdrop-filter: blur(15px);
             border-bottom: 1px solid var(--neutral-200);
@@ -109,6 +109,19 @@
             transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
 
+        .card-red {
+    background: linear-gradient(135deg, #3b0d0d, #160707);
+    border: 1px solid #6e1c1c;
+    color: #fff;
+}
+
+.card-red:hover {
+    box-shadow: 0 10px 30px rgba(255, 60, 60, 0.25);
+    transform: translateY(-2px);
+}
+
+
+
         .card:hover {
             transform: translateY(-8px);
             box-shadow: 0 25px 50px rgba(0,0,0,0.06);
@@ -149,7 +162,11 @@
 
 <nav>
     <div style="max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center;">
-        <a href="index.html" style="font-weight: 800; text-decoration: none; color: var(--text-dark); font-size: 1.2rem;">NMS <span style="font-weight: 300; opacity: 0.5;">| CYSEC</span></a>
+        <a href="index.html" style="font-weight: 800; text-decoration: none; color: var(--text-dark); font-size: 1.2rem;"><img 
+                src="logo_nms.png" 
+                alt="NMS CYSEC Logo"
+                style="height: 60px; width: auto;"
+            /></a>
         <a href="index.html" class="btn-nms" style="padding: 0.6rem 1.2rem; font-size: 0.9rem; margin: 0;">Portal Principal</a>
     </div>
 </nav>
@@ -157,7 +174,7 @@
 <header class="page-hero">
     <div class="hero-text">
         <div class="security-badge">DEFENSIVĂ ACTIVĂ</div>
-        <h1>Securitate<br><span>Fără Compromis</span></h1>
+        <h1>Securitate<br><span>Cibernetică</span></h1>
         <p>Într-o lume a amenințărilor digitale constante, nu ne mulțumim să reacționăm. Construim fortărețe digitale care anticipează riscul și protejează continuitatea afacerii tale.</p>
         <a href="#solutii" class="btn-nms">Audit de Securitate</a>
     </div>
@@ -186,8 +203,8 @@
             </div>
         </div>
 
-        <div class="card card-medium">
-            <div style="font-size: 2rem; margin-bottom: 1rem;">🔍</div>
+        <div class="card card-medium card-red">
+            
             <h3>Penetration Testing</h3>
             <p>Găsim punctele slabe înaintea hackerilor. Testăm aplicațiile și rețeaua ta prin atacuri simulate controlate.</p>
         </div>
