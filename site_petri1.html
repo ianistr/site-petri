@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberShield | Soluții Avansate de Securitate</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">CYBER<span class="highlight">SHIELD</span></a>
+            <ul class="nav-links">
+                <li><a href="#hero">Acasă</a></li>
+                <li><a href="#servicii">Servicii</a></li>
+                <li><a href="#about">Despre Noi</a></li>
+                <li><a href="#contact" class="btn-nav">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <section id="hero" class="hero">
+        <canvas id="networkCanvas"></canvas>
+        <div class="hero-content">
+            <h1>Securitate Cibernetică de <span class="typing-effect">Nouă Generație</span></h1>
+            <p>Protejăm infrastructura ta digitală prin soluții avansate de audit, Active Directory și dezvoltare software securizat.</p>
+            <div class="hero-buttons">
+                <a href="#servicii" class="btn btn-primary">Soluțiile Noastre</a>
+                <a href="#contact" class="btn btn-outline">Cere Audit</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="servicii" class="services">
+        <div class="container">
+            <h2 class="section-title">Serviciile <span class="highlight">Noastre</span></h2>
+            <div class="services-grid">
+                
+                <div class="service-card">
+                    <div class="icon-box">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Cyber Security & Threat Defense</h3>
+                    <p>Monitorizare proactivă și răspuns la incidente. Protecție împotriva ransomware, phishing și atacuri DDoS.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="icon-box">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <h3>Active Directory Management</h3>
+                    <p>Securizarea și administrarea identității. Gestionarea drepturilor de acces și hardening pentru infrastructura AD.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="icon-box">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3>Audit & Conformitate</h3>
+                    <p>Evaluări de vulnerabilitate, teste de penetrare (pentesting) și consultanță pentru standarde ISO/GDPR.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="icon-box">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>Dezvoltare Software Securizat</h3>
+                    <p>DevSecOps. Scriem cod sigur de la bază, integrând securitatea în fiecare etapă a ciclului de dezvoltare.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="container about-container">
+            <div class="about-text">
+                <h2>De ce <span class="highlight">CyberShield</span>?</h2>
+                <p>Într-o lume digitală în continuă expansiune, amenințările nu dorm niciodată. Noi suntem scutul dintre afacerea ta și haosul digital.</p>
+                <ul class="features-list">
+                    <li><i class="fas fa-check-circle"></i> Disponibilitate 24/7 SOC</li>
+                    <li><i class="fas fa-check-circle"></i> Experți certificați internațional</li>
+                    <li><i class="fas fa-check-circle"></i> Tehnologie proprietară AI-driven</li>
+                </ul>
+            </div>
+            <div class="about-stats">
+                <div class="stat-item">
+                    <h3>500+</h3>
+                    <p>Proiecte Securizate</p>
+                </div>
+                <div class="stat-item">
+                    <h3>99.9%</h3>
+                    <p>Rată Detecție</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Contactează <span class="highlight">Echipa</span></h2>
+            <div class="contact-wrapper">
+                <form class="contact-form">
+                    <div class="input-group">
+                        <input type="text" required placeholder="Numele Tău">
+                    </div>
+                    <div class="input-group">
+                        <input type="email" required placeholder="Email Corporate">
+                    </div>
+                    <div class="input-group">
+                        <select>
+                            <option>Selectează Serviciul</option>
+                            <option>Audit Securitate</option>
+                            <option>Active Directory</option>
+                            <option>Software Dev</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <textarea rows="5" required placeholder="Mesajul Tău"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Trimite Solicitarea</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-content">
+            <p>&copy; 2024 CyberShield Solutions. Toate drepturile rezervate.</p>
+            <div class="socials">
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-github"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

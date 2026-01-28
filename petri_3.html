@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoreBuild Security | Inginerie Software Securizată</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- 1. CSS VARIABLES & RESET --- */
+        :root {
+            /* Slate Tech Palette */
+            --bg-main: #1A1E23; /* Dark slate gray */
+            --bg-secondary: #232830; /* Slightly lighter slate */
+            --primary-blue: #3399FF; /* Electric Blue - Data/Tech */
+            --accent-orange: #FF6B35; /* Industrial Orange - Action/Alert */
+            --text-light: #EEEFFF;
+            --text-dim: #8A92A3;
+            --grid-line: rgba(51, 153, 255, 0.08); /* Subtle blueprint grid */
+            
+            --font-mono: 'Fira Code', monospace;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-light);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            /* Pattern de grilă tehnică în fundal */
+            background-image: 
+                linear-gradient(var(--grid-line) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+            background-size: 30px 30px;
+            background-position: center center;
+        }
+
+        /* --- 2. UTILITIES --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        h1, h2, h3, .mono-text {
+            font-family: var(--font-mono);
+            letter-spacing: -0.5px;
+        }
+
+        .accent-blue { color: var(--primary-blue); }
+        .accent-orange { color: var(--accent-orange); }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: var(--primary-blue);
+            color: var(--bg-main);
+        }
+
+        .btn-primary:hover {
+            background: transparent;
+            border-color: var(--primary-blue);
+            color: var(--primary-blue);
+        }
+
+        .btn-secondary {
+            border-color: var(--accent-orange);
+            color: var(--accent-orange);
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent-orange);
+            color: var(--bg-main);
+        }
+
+        /* --- 3. NAVBAR (Technical Style) --- */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 2px solid var(--bg-secondary);
+            background: var(--bg-main);
+        }
+
+        .logo {
+            font-family: var(--font-mono);
+            font-weight: 700;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i { color: var(--accent-orange); }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dim);
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary-blue);
+        }
+
+        /* Linie tehnică sub link-ul activ */
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-blue);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after { width: 100%; }
+
+        /* --- 4. HERO SECTION (Engineering Focus) --- */
+        .hero {
+            padding: 120px 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        /* Efect de typing */
+        .typing-container {
+            display: inline-block;
+            color: var(--primary-blue);
+            border-right: 3px solid var(--accent-orange);
+            white-space: nowrap;
+            overflow: hidden;
+            animation: blink-caret 0.75s step-end infinite;
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--accent-orange) }
+        }
+
+        .hero-content p {
+            font-size: 1.1rem;
+            color: var(--text-dim);
+            margin-bottom: 40px;
+            max-width: 500px;
+        }
+
+        .hero-visual {
+            position: relative;
+            height: 400px;
+            border: 2px dashed var(--primary-blue);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: var(--bg-secondary);
+        }
+        
+        .code-snippet {
+            font-family: var(--font-mono);
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            padding: 20px;
+        }
+        .c-k { color: var(--accent-orange); } /* Keyword */
+        .c-f { color: var(--primary-blue); } /* Function */
+        .c-s { color: #98c379; } /* String */
+
+        /* --- 5. SERVICES (Technical Modules) --- */
+        .section-header { margin-bottom: 60px; }
+        .section-header h2 { font-size: 2.5rem; margin-bottom: 10px; }
+        .section-header .subtitle { font-family: var(--font-mono); color: var(--accent-orange); }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px;
+        }
+
+        .tech-card {
+            background: var(--bg-secondary);
+            border: 1px solid rgba(51, 153, 255, 0.2);
+            padding: 30px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        /* Technical Corners */
+        .tech-card::before {
+            content: '';
+            position: absolute;
+            top: -1px; left: -1px;
+            width: 20px; height: 20px;
+            border-top: 2px solid var(--primary-blue);
+            border-left: 2px solid var(--primary-blue);
+        }
+        .tech-card::after {
+            content: '';
+            position: absolute;
+            bottom: -1px; right: -1px;
+            width: 20px; height: 20px;
+            border-bottom: 2px solid var(--primary-blue);
+            border-right: 2px solid var(--primary-blue);
+        }
+
+        .tech-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px -10px rgba(51, 153, 255, 0.3);
+            border-color: var(--primary-blue);
+        }
+
+        .card-icon {
+            font-size: 2rem;
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+        }
+
+        .tech-card h3 { margin-bottom: 15px; font-size: 1.3rem; }
+        .tech-card p { color: var(--text-dim); font-size: 0.95rem; }
+        
+        /* --- 6. FOOTER --- */
+        footer {
+            margin-top: 120px;
+            background: var(--bg-secondary);
+            padding: 60px 0 30px;
+            text-align: center;
+            border-top: 3px solid var(--accent-orange);
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .hero { grid-template-columns: 1fr; text-align: center; padding: 60px 0; }
+            .hero-content p { margin: 0 auto 30px auto; }
+            .nav-links { display: none; } /* Simplificare pt demo */
+            .hero-visual { display: none; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <nav class="navbar">
+            <a href="#" class="logo">
+                <i class="fas fa-cube"></i> CoreBuild<span class="accent-blue">.dev</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#hero" class="active">/// Home</a></li>
+                <li><a href="#services">/// Capabilități</a></li>
+                <li><a href="#contact">/// Sistem Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <section id="hero" class="container hero">
+        <div class="hero-content">
+            <p class="mono-text accent-orange">> Initializing secure protocol...</p>
+            <h1>Ingineria Încrederii Digitale prin <span class="typing-container" id="typewriter"></span></h1>
+            <p>Nu doar protejăm, ci construim. Suntem arhitecții infrastructurii tale software și Active Directory, integrând securitatea direct în codul sursă.</p>
+            <div class="hero-btns">
+                <a href="#services" class="btn btn-primary">EXPLOREAZĂ ARHITECTURA</a>
+                <a href="#contact" class="btn btn-secondary">API CONTACT</a>
+            </div>
+        </div>
+        
+        <div class="hero-visual">
+            <div class="code-snippet">
+                <div><span class="c-k">class</span> SecureInfrastructure {</div>
+                <div>&nbsp;&nbsp;<span class="c-k">constructor</span>() {</div>
+                <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-f">this</span>.buildBase();</div>
+                <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-f">this</span>.hardenAD();</div>
+                <div>&nbsp;&nbsp;}</div>
+                <br>
+                <div>&nbsp;&nbsp;<span class="c-f">deploySecurely</span>() {</div>
+                <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-k">return</span> <span class="c-s">"System Integrity: 100%"</span>;</div>
+                <div>&nbsp;&nbsp;}</div>
+                <div>}</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="container">
+        <div class="section-header">
+            <span class="subtitle">// MODULE PRINCIPALE</span>
+            <h2>Capabilități Tehnice</h2>
+        </div>
+
+        <div class="services-grid">
+            
+            <div class="tech-card">
+                <div class="card-icon"><i class="fas fa-code-branch"></i></div>
+                <h3>Secure Software Development (DevSecOps)</h3>
+                <p>Scriem cod defensiv. Integrăm analiza statică (SAST) și dinamică (DAST) direct în pipeline-ul de CI/CD. Livrăm software robust din faza de design.</p>
+            </div>
+
+            <div class="tech-card">
+                <div class="card-icon"><i class="fas fa-sitemap"></i></div>
+                <h3>Active Directory Architecture & Hardening</h3>
+                <p>Proiectăm structuri AD reziliente. Implementăm modelul Tiering, Just-in-Time Admin Access și politici stricte GPO pentru a minimiza suprafața de atac.</p>
+            </div>
+
+            <div class="tech-card">
+                <div class="card-icon"><i class="fas fa-shield-virus"></i></div>
+                <h3>Proactive Threat Engineering</h3>
+                <p>Nu așteptam incidentele. Construim sisteme de detecție timpurie și răspuns automatizat (SOAR) personalizate pentru infrastructura clientului.</p>
+            </div>
+
+            <div class="tech-card" style="border-color: var(--accent-orange);">
+                <div class="card-icon accent-orange"><i class="fas fa-clipboard-check"></i></div>
+                <h3>System Validation & Compliance Audit</h3>
+                <p>Etapa finală de validare. Teste de penetrare și audituri de conformitate pentru a certifica că ceea ce am construit sau dețineți este impenetrabil.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container">
+            <i class="fas fa-terminal fa-3x accent-blue" style="margin-bottom: 20px;"></i>
+            <h3>Gata de implementare?</h3>
+            <p class="mono-text" style="margin: 20px 0;">> Așteptăm semnalul tău pentru inițializarea proiectului.</p>
+            <a href="mailto:contact@corebuild.dev" class="btn btn-primary">EMAIL: CONTACT@COREBUILD.DEV</a>
+            <p style="margin-top: 50px; font-size: 0.8rem; opacity: 0.6;">
+                © 2024 CoreBuild Security Systems. All protocols secured. <br> Status: ONLINE.
+            </p>
+        </div>
+    </footer>
+
+
+    <script>
+        // --- Simple Typewriter Effect for Hero ---
+        const text = "Arhitectură Solidă.";
+        const typingContainer = document.getElementById('typewriter');
+        let index = 0;
+
+        function type() {
+            if (index < text.length) {
+                typingContainer.textContent += text.charAt(index);
+                index++;
+                setTimeout(type, 100); // Viteza de scriere
+            }
+        }
+
+        // Pornim efectul după ce se încarcă pagina
+        window.onload = () => {
+            setTimeout(type, 500);
+        }
+
+        // --- Active Link on Scroll ---
+        const sections = document.querySelectorAll("section");
+        const navLi = document.querySelectorAll(".nav-links li a");
+
+        window.addEventListener("scroll", () => {
+            let current = "";
+            sections.forEach((section) => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute("id");
+                }
+            });
+
+            navLi.forEach((a) => {
+                a.classList.remove("active");
+                if (a.classList.contains(current)) {
+                    a.classList.add("active");
+                }
+            });
+        });
+    </script>
+</body>
+</html>
