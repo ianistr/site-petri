@@ -1,0 +1,1338 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NMS | IT Solutions</title>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Color Psychology: Teal pentru trust și profesionalism, Orange pentru energie și acțiune */
+   --primary-teal: #1973AF;      /* base blue */
+  --primary-dark: #0F4E78;      /* darker blue for nav / headers */
+
+  --accent-orange: #4FA3D1;     /* lighter blue accent */
+  --accent-coral: #7BB6DA;      /* soft blue highlight */
+
+  --neutral-100: #F5F9FC;       /* very light blue background */
+  --neutral-200: #E2EDF6;       /* cards / subtle sections */
+  --neutral-800: #1E3346;       /* dark blue-gray */
+  --neutral-900: #0F2438;       /* deepest blue background */
+
+  --text-dark: #0F172A;
+  --text-muted: #475569;
+  --white: #FFFFFF;
+            
+            /* Golden Ratio */
+            --golden-ratio: 1.618;
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 0.8125rem;  /* 13px - fibonacci */
+            --spacing-md: 1.3125rem;  /* 21px - fibonacci */
+            --spacing-lg: 2.125rem;   /* 34px - fibonacci */
+            --spacing-xl: 3.4375rem;  /* 55px - fibonacci */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Sora', sans-serif;
+            background: var(--neutral-100);
+            color: var(--text-dark);
+            line-height: 1.618; /* Golden Ratio */
+            overflow-x: hidden;
+        }
+
+        /* Grid overlay for visual balance - Rule of Thirds */
+        .grid-structure {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            background: 
+                linear-gradient(90deg, transparent calc(33.33% - 1px), rgba(13, 148, 136, 0.02) calc(33.33% - 1px), rgba(13, 148, 136, 0.02) calc(33.33% + 1px), transparent calc(33.33% + 1px)),
+                linear-gradient(90deg, transparent calc(66.66% - 1px), rgba(13, 148, 136, 0.02) calc(66.66% - 1px), rgba(13, 148, 136, 0.02) calc(66.66% + 1px), transparent calc(66.66% + 1px)),
+                linear-gradient(0deg, transparent calc(33.33% - 1px), rgba(13, 148, 136, 0.02) calc(33.33% - 1px), rgba(13, 148, 136, 0.02) calc(33.33% + 1px), transparent calc(33.33% + 1px)),
+                linear-gradient(0deg, transparent calc(66.66% - 1px), rgba(13, 148, 136, 0.02) calc(66.66% - 1px), rgba(13, 148, 136, 0.02) calc(66.66% + 1px), transparent calc(66.66% + 1px));
+        }
+
+       nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 2px solid var(--neutral-200);
+    padding: 0.75rem 6%; /* Consistent padding */
+    transition: all 0.3s ease;
+}
+
+nav.scrolled {
+    padding: 0.5rem 6%;
+    box-shadow: 0 4px 30px rgba(13, 148, 136, 0.1);
+}
+
+.nav-wrapper {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px; /* Fixed height for navbar */
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.brand-icon {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.brand-icon img {
+    height: 100%; /* Fill the navbar height */
+    width: auto;
+    max-height: 100px; /* Maximum logo height */
+    object-fit: contain; /* Maintain aspect ratio */
+    display: block;
+}
+
+
+
+        .nav-menu {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-menu a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--accent-orange);
+            transition: width 0.3s;
+        }
+
+        .nav-menu a:hover {
+            color: var(--primary-teal);
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            padding: 0.75rem 1.8rem;
+            background: var(--accent-orange);
+            color: white;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .nav-cta:hover {
+            background: var(--accent-coral);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(249, 115, 22, 0.3);
+        }
+
+        .nav-cta:hover::after {
+            display: none;
+        }
+
+        /* Hero Section - Applying Rule of Thirds */
+        .hero {
+            min-height: 100vh;
+            padding: calc(80px + var(--spacing-xl)) 6% var(--spacing-xl);
+            position: relative;
+            display: grid;
+            grid-template-columns: 1.618fr 1fr; /* Golden Ratio */
+            gap: var(--spacing-xl);
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .hero-content {
+            /* Positioned at intersection of rule of thirds */
+            animation: slideInLeft 0.8s ease-out;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.6rem 1.3rem;
+            background: linear-gradient(135deg, var(--neutral-200), var(--neutral-100));
+            border: 2px solid var(--primary-teal);
+            border-radius: 50px;
+            color: var(--primary-dark);
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .eyebrow-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent-orange);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.2); }
+        }
+
+        .hero h1 {
+            font-size: clamp(2.8rem, 5vw, 5.5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: var(--spacing-md);
+            color: var(--text-dark);
+            letter-spacing: -2px;
+        }
+
+        .hero h1 .display {
+            font-family: 'Playfair Display', serif;
+            color: var(--primary-teal);
+            display: block;
+            font-style: italic;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            line-height: 1.618;
+            margin-bottom: var(--spacing-lg);
+            max-width: 580px;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1.1rem 2.3rem;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--accent-orange);
+            color: white;
+            box-shadow: 0 4px 14px rgba(249, 115, 22, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-coral);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(249, 115, 22, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary-teal);
+            border: 2px solid var(--primary-teal);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-teal);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* Hero Visual - Asymmetric Balance */
+        .hero-visual {
+            position: relative;
+            animation: slideInRight 0.8s ease-out;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .visual-main-card {
+            background: white;
+            border-radius: 24px;
+            padding: 2.5rem;
+            box-shadow: 0 25px 50px rgba(13, 148, 136, 0.15);
+            border: 2px solid var(--neutral-200);
+            position: relative;
+        }
+
+        .visual-metric {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 2rem;
+        }
+
+        .metric-value {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--primary-teal);
+            line-height: 1;
+        }
+
+        .metric-trend {
+            background: linear-gradient(135deg, var(--neutral-200), var(--neutral-100));
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            color: var(--accent-orange);
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .visual-chart {
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(180deg, var(--neutral-100) 0%, transparent 100%);
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chart-bars {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            height: 100%;
+            padding: 1rem;
+        }
+
+        .bar {
+            width: 12%;
+            background: linear-gradient(180deg, var(--accent-orange), var(--accent-coral));
+            border-radius: 6px 6px 0 0;
+            animation: growBar 1s ease-out forwards;
+            opacity: 0;
+        }
+
+        .bar:nth-child(1) { animation-delay: 0.2s; height: 40%; }
+        .bar:nth-child(2) { animation-delay: 0.3s; height: 65%; }
+        .bar:nth-child(3) { animation-delay: 0.4s; height: 55%; }
+        .bar:nth-child(4) { animation-delay: 0.5s; height: 80%; }
+        .bar:nth-child(5) { animation-delay: 0.6s; height: 70%; }
+        .bar:nth-child(6) { animation-delay: 0.7s; height: 90%; }
+        .bar:nth-child(7) { animation-delay: 0.8s; height: 75%; }
+
+        @keyframes growBar {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .visual-badges {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .badge {
+            background: var(--neutral-100);
+            padding: 1rem;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            border: 1px solid var(--neutral-200);
+        }
+
+        .badge-icon {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, var(--primary-teal), var(--accent-orange));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        .badge-text {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        /* Services Section - Visual Hierarchy */
+        .services {
+            padding: var(--spacing-xl) 6%;
+            background: white;
+            position: relative;
+        }
+
+        .section-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-intro {
+            text-align: center;
+            max-width: 720px;
+            margin: 0 auto var(--spacing-xl);
+        }
+
+        .section-label {
+            display: inline-block;
+            padding: 0.6rem 1.2rem;
+            background: var(--neutral-200);
+            color: var(--primary-dark);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .section-intro h2 {
+            font-size: clamp(2.5rem, 4vw, 4rem);
+            font-weight: 800;
+            margin-bottom: var(--spacing-sm);
+            color: var(--text-dark);
+            letter-spacing: -1.5px;
+        }
+
+        .section-intro p {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        /* Asymmetric Grid Layout */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 1.5rem;
+        }
+
+        .service-card {
+            background: var(--neutral-100);
+            border: 2px solid var(--neutral-200);
+            border-radius: 20px;
+            padding: 2.5rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-teal), var(--accent-orange));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s;
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(13, 148, 136, 0.15);
+            border-color: var(--primary-teal);
+        }
+
+        /* Implementing Rule of Thirds in grid */
+        .service-card:nth-child(1) { grid-column: span 6; }
+        .service-card:nth-child(2) { grid-column: span 6; }
+        .service-card:nth-child(3) { grid-column: span 4; }
+        .service-card:nth-child(4) { grid-column: span 8; }
+
+        .service-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, var(--primary-teal), var(--neutral-800));
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            flex-shrink: 0;
+            box-shadow: 0 8px 20px rgba(13, 148, 136, 0.2);
+        }
+
+        .service-title {
+            flex: 1;
+        }
+
+        .service-title h3 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 0.4rem;
+            color: var(--text-dark);
+        }
+
+        .service-title .subtitle {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .service-description {
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-features {
+            list-style: none;
+        }
+
+        .service-features li {
+            padding: 0.7rem 0;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 0.95rem;
+        }
+
+        .service-features li::before {
+            content: '→';
+            color: var(--accent-orange);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Stats Section - Using Contrast for Emphasis */
+        .stats {
+            padding: var(--spacing-xl) 6%;
+            background: linear-gradient(135deg, var(--primary-teal), var(--primary-dark));
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stats::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 80%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .stats-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 4.5rem;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+            color: var(--accent-orange);
+            font-family: 'Playfair Display', serif;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            font-weight: 500;
+            opacity: 0.95;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Process Section - Leading Lines */
+        .process {
+            padding: var(--spacing-xl) 6%;
+            background: var(--neutral-100);
+        }
+
+        .process-flow {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            position: relative;
+        }
+
+        .process-flow::before {
+            content: '';
+            position: absolute;
+            top: 50px;
+            left: 10%;
+            right: 10%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-teal), var(--accent-orange));
+            z-index: 0;
+        }
+
+        .process-step {
+            background: white;
+            border: 2px solid var(--neutral-200);
+            border-radius: 16px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            transition: all 0.3s;
+        }
+
+        .process-step:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(13, 148, 136, 0.12);
+            border-color: var(--primary-teal);
+        }
+
+        .step-number {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary-teal), var(--accent-orange));
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 800;
+            margin: 0 auto 1.5rem;
+            box-shadow: 0 8px 20px rgba(13, 148, 136, 0.3);
+        }
+
+        .process-step h4 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            color: var(--text-dark);
+        }
+
+        .process-step p {
+            color: var(--text-muted);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        /* CTA Section - Color Psychology (Orange for Action) */
+        .cta-section {
+            padding: var(--spacing-xl) 6%;
+            background: white;
+        }
+
+        .cta-box {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, var(--accent-orange), var(--accent-coral));
+            border-radius: 28px;
+            padding: 5rem 4rem;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 30px 60px rgba(249, 115, 22, 0.25);
+        }
+
+        .cta-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .cta-box h2 {
+            font-size: clamp(2.2rem, 4vw, 3.5rem);
+            font-weight: 800;
+            margin-bottom: 1.2rem;
+            position: relative;
+            z-index: 1;
+            letter-spacing: -1px;
+        }
+
+        .cta-box p {
+            font-size: 1.25rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-box .btn {
+            background: white;
+            color: var(--accent-orange);
+            position: relative;
+            z-index: 1;
+            font-size: 1.1rem;
+            padding: 1.2rem 2.8rem;
+        }
+
+        .cta-box .btn:hover {
+            background: var(--neutral-100);
+            color: var(--accent-orange);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--neutral-900);
+            color: white;
+            padding: 4rem 6% 2rem;
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-main {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand h3 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--accent-orange);
+            margin-bottom: 1rem;
+        }
+
+        .footer-brand p {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-column h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--accent-orange);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.8rem;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            width: 42px;
+            height: 42px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--accent-orange);
+            transform: translateY(-3px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .hero {
+                grid-template-columns: 1fr;
+            }
+
+            .services-grid .service-card {
+                grid-column: span 12 !important;
+            }
+
+            .process-flow {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .process-flow::before {
+                display: none;
+            }
+
+            .footer-main {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .hero {
+                padding-top: calc(80px + 2rem);
+            }
+
+            .process-flow {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .cta-box {
+                padding: 3rem 2rem;
+            }
+
+            .footer-main {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1.5rem;
+                text-align: center;
+            }
+        }
+
+        /* Scroll Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.7s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Grid Structure for Visual Reference -->
+    <div class="grid-structure"></div>
+
+   <!-- Navigation -->
+<nav id="navbar">
+    <div class="nav-wrapper">
+        <div class="brand">
+            <div class="brand-icon">
+                <img src="logo_nms.png" alt="NMS logo">
+            </div>
+        </div>
+        <ul class="nav-menu">
+            <li><a href="#acasa">Acasă</a></li>
+            <li><a href="#servicii">Servicii</a></li>
+            <li><a href="#proces">Proces</a></li>
+            <li><a href="#contact" class="nav-cta">Contact</a></li>
+        </ul>
+    </div>
+</nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="acasa">
+        <div class="hero-content">
+            <div class="hero-eyebrow">
+                <span class="eyebrow-dot"></span>
+                Certificat ISO 27001
+            </div>
+            <h1>
+                Securitate<br>
+                <span class="display">Fără Compromis</span>
+            </h1>
+            <p class="hero-subtitle">
+                Protejăm afaceri prin soluții avansate de cyber security, administrare 
+                expertă Active Directory, audituri complete și dezvoltare software sigură.
+            </p>
+            <div class="hero-actions">
+                <a href="#contact" class="btn btn-primary">
+                    Solicită Consultație
+                    <span>→</span>
+                </a>
+                <a href="#servicii" class="btn btn-secondary">
+                    Explorează Serviciile
+                </a>
+            </div>
+        </div>
+
+        <div class="hero-visual">
+            <div class="visual-main-card">
+                <div class="visual-metric">
+                    <div class="metric-value">99.9%</div>
+                    <div class="metric-trend">↑ 15.2%</div>
+                </div>
+                <div class="visual-chart">
+                    <div class="chart-bars">
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                    </div>
+                </div>
+                <div class="visual-badges">
+                    <div class="badge">
+                        <div class="badge-icon">🛡️</div>
+                        <div class="badge-text">Protecție 24/7</div>
+                    </div>
+                    <div class="badge">
+                        <div class="badge-icon">⚡</div>
+                        <div class="badge-text">Răspuns Rapid</div>
+                    </div>
+                    <div class="badge">
+                        <div class="badge-icon">✓</div>
+                        <div class="badge-text">Certificări</div>
+                    </div>
+                    <div class="badge">
+                        <div class="badge-icon">🔒</div>
+                        <div class="badge-text">Audit Complet</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="servicii">
+        <div class="section-container">
+            <div class="section-intro reveal">
+                <span class="section-label">Expertiza Noastră</span>
+                <h2>Servicii Complete de Protecție</h2>
+                <p>
+                    Oferim soluții integrate pentru a securiza și optimiza întreaga 
+                    ta infrastructură digitală
+                </p>
+            </div>
+
+            <div class="services-grid">
+                <div class="service-card reveal">
+                    <div class="service-header">
+                        <div class="service-icon">🛡️</div>
+                        <div class="service-title">
+                            <h3>Securitate Cibernetică</h3>
+                            <span class="subtitle">Protecție Avansată 24/7</span>
+                        </div>
+                    </div>
+                    <p class="service-description">
+                        Monitorizare continuă, detectare amenințări și răspuns rapid la 
+                        incidente pentru protecția completă a afacerii tale.
+                    </p>
+                    <ul class="service-features">
+                        <li>Security Operations Center (SOC)</li>
+                        <li>Threat Intelligence & Detection</li>
+                        <li>Incident Response Management</li>
+                        <li>Penetration Testing & Red Teaming</li>
+                    </ul>
+                </div>
+
+                <div class="service-card reveal">
+                    <div class="service-header">
+                        <div class="service-icon">📁</div>
+                        <div class="service-title">
+                            <h3>Active Directory</h3>
+                            <span class="subtitle">Gestionare & Securizare</span>
+                        </div>
+                    </div>
+                    <p class="service-description">
+                        Configurare expertă, politici de securitate avansate și 
+                        management complet al identităților corporative.
+                    </p>
+                    <ul class="service-features">
+                        <li>Implementare și Optimizare AD</li>
+                        <li>Azure AD Integration</li>
+                        <li>Group Policy Management</li>
+                        <li>Disaster Recovery Planning</li>
+                    </ul>
+                </div>
+
+                <div class="service-card reveal">
+                    <div class="service-header">
+                        <div class="service-icon">📊</div>
+                        <div class="service-title">
+                            <h3>Audit & Compliance</h3>
+                            <span class="subtitle">Conformitate Totală</span>
+                        </div>
+                    </div>
+                    <p class="service-description">
+                        Evaluări detaliate pentru conformitate GDPR, ISO 27001 
+                        și alte standarde internaționale.
+                    </p>
+                    <ul class="service-features">
+                        <li>Security Audits Complete</li>
+                        <li>GDPR Compliance</li>
+                        <li>ISO 27001 Consulting</li>
+                    </ul>
+                </div>
+
+                <div class="service-card reveal">
+                    <div class="service-header">
+                        <div class="service-icon">💻</div>
+                        <div class="service-title">
+                            <h3>Dezvoltare Software Sigură</h3>
+                            <span class="subtitle">Secure by Design</span>
+                        </div>
+                    </div>
+                    <p class="service-description">
+                        Aplicații personalizate construite cu securitate încorporată 
+                        din faza de design până la deployment.
+                    </p>
+                    <ul class="service-features">
+                        <li>Secure SDLC Implementation</li>
+                        <li>API Development & Security</li>
+                        <li>DevSecOps Integration</li>
+                        <li>Code Review & Static Analysis</li>
+                        <li>Security Testing Automation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="stats-container">
+            <div class="stats-grid">
+                <div class="stat-item reveal">
+                    <div class="stat-number">750+</div>
+                    <div class="stat-label">Clienți Protejați</div>
+                </div>
+                <div class="stat-item reveal">
+                    <div class="stat-number">99.9%</div>
+                    <div class="stat-label">Uptime Garantat</div>
+                </div>
+                <div class="stat-item reveal">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Monitorizare Activă</div>
+                </div>
+                <div class="stat-item reveal">
+                    <div class="stat-number">18+</div>
+                    <div class="stat-label">Ani Experiență</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process" id="proces">
+        <div class="section-container">
+            <div class="section-intro reveal">
+                <span class="section-label">Metodologia Noastră</span>
+                <h2>Proces Structurat și Eficient</h2>
+                <p>Abordare transparentă pentru rezultate măsurabile</p>
+            </div>
+
+            <div class="process-flow">
+                <div class="process-step reveal">
+                    <div class="step-number">1</div>
+                    <h4>Analiză Inițială</h4>
+                    <p>Evaluăm infrastructura și identificăm vulnerabilitățile</p>
+                </div>
+                <div class="process-step reveal">
+                    <div class="step-number">2</div>
+                    <h4>Strategie</h4>
+                    <p>Dezvoltăm soluții personalizate pentru nevoile tale</p>
+                </div>
+                <div class="process-step reveal">
+                    <div class="step-number">3</div>
+                    <h4>Implementare</h4>
+                    <p>Aplicăm măsurile cu minim impact operațional</p>
+                </div>
+                <div class="process-step reveal">
+                    <div class="step-number">4</div>
+                    <h4>Optimizare</h4>
+                    <p>Monitorizare continuă și îmbunătățire proactivă</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" id="contact">
+        <div class="cta-box reveal">
+            <h2>Protejează-ți Afacerea Astăzi</h2>
+            <p>
+                Contactează-ne pentru o evaluare gratuită a securității tale digitale 
+                și descoperă cum te putem ajuta să rămâi în siguranță.
+            </p>
+            <a href="mailto:contact@cybershield.ro" class="btn">
+                Programează o Consultație
+                <span>✉</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-main">
+                <div class="footer-brand">
+                    <h3>CyberShield Systems</h3>
+                    <p>
+                        Partenerul tău de încredere pentru securitate digitală completă. 
+                        Protejăm afaceri cu soluții inovatoare și suport dedicat.
+                    </p>
+                </div>
+                <div class="footer-column">
+                    <h4>Servicii</h4>
+                    <ul class="footer-links">
+                        <li><a href="#servicii">Cyber Security</a></li>
+                        <li><a href="#servicii">Active Directory</a></li>
+                        <li><a href="#servicii">Audit</a></li>
+                        <li><a href="#servicii">Dezvoltare</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Companie</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Despre Noi</a></li>
+                        <li><a href="#">Echipa</a></li>
+                        <li><a href="#">Cariere</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Contact</h4>
+                    <ul class="footer-links">
+                        <li><a href="mailto:contact@cybershield.ro">contact@cybershield.ro</a></li>
+                        <li><a href="tel:+40770123456">+40 770 123 456</a></li>
+                        <li>București, România</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 CyberShield Systems. Toate drepturile rezervate.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="LinkedIn">in</a>
+                    <a href="#" aria-label="Twitter">𝕏</a>
+                    <a href="#" aria-label="Facebook">f</a>
+                    <a href="#" aria-label="Instagram">ig</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        let lastScroll = 0;
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 80) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+            
+            lastScroll = currentScroll;
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offset = 80;
+                    const targetPosition = target.offsetTop - offset;
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Scroll reveal animation
+        const revealElements = document.querySelectorAll('.reveal');
+        
+        const revealOnScroll = () => {
+            const windowHeight = window.innerHeight;
+            const revealPoint = 100;
+            
+            revealElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                
+                if (elementTop < windowHeight - revealPoint) {
+                    element.classList.add('active');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll(); // Initial check
+
+        // Stagger animation delays
+        document.querySelectorAll('.service-card').forEach((card, index) => {
+            card.style.transitionDelay = `${index * 0.1}s`;
+        });
+
+        document.querySelectorAll('.process-step').forEach((step, index) => {
+            step.style.transitionDelay = `${index * 0.15}s`;
+        });
+
+        document.querySelectorAll('.stat-item').forEach((item, index) => {
+            item.style.transitionDelay = `${index * 0.1}s`;
+        });
+
+        // Counter animation for stats
+        const animateCounter = (element) => {
+            const target = element.textContent;
+            const isPercentage = target.includes('%');
+            const isPlus = target.includes('+');
+            const numericValue = parseFloat(target.replace(/[^\d.]/g, ''));
+            
+            let current = 0;
+            const increment = numericValue / 50;
+            const duration = 2000;
+            const stepTime = duration / 50;
+            
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= numericValue) {
+                    current = numericValue;
+                    clearInterval(timer);
+                }
+                
+                let display = isPercentage ? current.toFixed(1) : Math.floor(current);
+                if (target.includes('/')) {
+                    display = '24/7';
+                } else {
+                    if (isPercentage) display += '%';
+                    if (isPlus) display += '+';
+                }
+                element.textContent = display;
+            }, stepTime);
+        };
+
+        // Trigger counter animation when stats section is visible
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !entry.target.classList.contains('counted')) {
+                    entry.target.classList.add('counted');
+                    const statNumbers = entry.target.querySelectorAll('.stat-number');
+                    statNumbers.forEach(num => {
+                        setTimeout(() => animateCounter(num), 300);
+                    });
+                }
+            });
+        }, { threshold: 0.5 });
+
+        const statsSection = document.querySelector('.stats-container');
+        if (statsSection) {
+            statsObserver.observe(statsSection);
+        }
+    </script>
+</body>
+</html>
