@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M365 | NMS IT Solutions</title>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-teal: #1973AF;
+            --primary-dark: #0F4E78;
+            --accent-blue: #0078D4; /* Microsoft Blue */
+            --neutral-100: #F5F9FC;
+            --neutral-200: #E2EDF6;
+            --text-dark: #0F172A;
+            --text-muted: #475569;
+            --spacing-xl: 3.4375rem;
+            --golden-ratio: 1.618;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Sora', sans-serif; background: var(--neutral-100); color: var(--text-dark); line-height: 1.618; }
+
+        /* Navigație - Păstrată pentru consistență */
+        nav {
+            padding: 1rem 6%;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--neutral-200);
+            position: sticky; top: 0; z-index: 100;
+        }
+
+        /* Hero Secțiune Asimetrică (Rule of Thirds) */
+        .page-hero {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr; /* Proporție aurie */
+            min-height: 70vh;
+            padding: var(--spacing-xl) 6%;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            gap: 4rem;
+        }
+
+        .hero-text h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            color: var(--text-dark);
+        }
+
+        .hero-text h1 span {
+            font-family: 'Playfair Display', serif;
+            color: var(--primary-teal);
+            font-style: italic;
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 600px;
+        }
+
+        /* Visual Card - Minimalist */
+        .hero-visual-box {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 30px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.05);
+            border: 1px solid var(--neutral-200);
+            position: relative;
+        }
+
+        .cloud-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: var(--neutral-200);
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+            margin-bottom: 1rem;
+        }
+
+        /* Grid de Servicii Asimetric (Inspirat din prima pagină) */
+        .services-layout {
+            padding: var(--spacing-xl) 6%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .asymmetric-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 2rem;
+        }
+
+        .card {
+            background: white;
+            padding: 3rem;
+            border-radius: 24px;
+            transition: all 0.4s ease;
+            border: 1px solid transparent;
+        }
+
+        .card:hover {
+            border-color: var(--primary-teal);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(25, 115, 175, 0.08);
+        }
+
+        /* Span-uri pentru layout asimetric */
+        .card-large { grid-column: span 7; background: var(--primary-dark); color: white; }
+        .card-medium { grid-column: span 5; }
+        .card-small { grid-column: span 4; background: var(--neutral-200); }
+        .card-wide { grid-column: span 8; }
+
+        .card h3 { font-size: 1.8rem; margin-bottom: 1rem; }
+        .card-large h3 { color: white; }
+        .card p { opacity: 0.8; margin-bottom: 1.5rem; }
+
+        /* Buton stil NMS */
+        .btn-nms {
+            padding: 1rem 2rem;
+            background: var(--primary-teal);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            display: inline-block;
+            transition: 0.3s;
+        }
+
+        .btn-nms:hover { background: var(--primary-dark); transform: scale(1.02); }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .page-hero { grid-template-columns: 1fr; text-align: center; }
+            .hero-text p { margin: 0 auto 2rem; }
+            .asymmetric-grid > div { grid-column: span 12 !important; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div style="max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center;">
+        <a href="index.html" style="font-weight: 800; text-decoration: none; color: var(--text-dark); font-size: 1.2rem;">NMS <span style="font-weight: 300; opacity: 0.5;">| SOLUTIONS</span></a>
+        <a href="index.html" class="btn-nms" style="padding: 0.6rem 1.2rem; font-size: 0.9rem;">Înapoi</a>
+    </div>
+</nav>
+
+<section class="page-hero">
+    <div class="hero-text">
+        <div class="cloud-badge">PARTENER CLOUD</div>
+        <h1>Productivitate<br><span>Fără Limite</span></h1>
+        <p>Nu ne limităm la vânzarea de licențe. Construim mediul digital în care echipa ta poate performa, colabora și inova în deplină siguranță.</p>
+        <div style="margin-top: 2.5rem;">
+            <a href="#detalii" class="btn-nms">Vezi Planurile de Migrare</a>
+        </div>
+    </div>
+    
+    <div class="hero-visual-box">
+        <div style="font-size: 3rem; margin-bottom: 1rem;">☁️</div>
+        <h4 style="margin-bottom: 0.5rem;">Cloud Status</h4>
+        <div style="width: 100%; height: 8px; background: var(--neutral-200); border-radius: 10px; margin-bottom: 1rem;">
+            <div style="width: 85%; height: 100%; background: var(--accent-blue); border-radius: 10px;"></div>
+        </div>
+        <p style="font-size: 0.85rem; color: var(--text-muted);">85% din companiile moderne au migrat deja fluxurile critice în Microsoft 365.</p>
+    </div>
+</section>
+
+<section class="services-layout" id="detalii">
+    <div class="asymmetric-grid">
+        <div class="card card-large">
+            <h3>Migrare & Arhitectură</h3>
+            <p>Echipa noastră preia întreaga responsabilitate a transferului de date. De la serverele tale locale către infrastructura globală Microsoft, fără întreruperi de activitate.</p>
+            <ul style="list-style: none; opacity: 0.9;">
+                <li>✓ Migrare Exchange & SharePoint</li>
+                <li>✓ Configurare identități hibride</li>
+                <li>✓ Optimizare OneDrive for Business</li>
+            </ul>
+        </div>
+
+        <div class="card card-medium">
+            <div style="font-size: 2rem; margin-bottom: 1rem;">🛡️</div>
+            <h3>Securitate M365</h3>
+            <p>Configurăm politici de acces condiționat și protecție împotriva scurgerilor de date (DLP).</p>
+        </div>
+
+        <div class="card card-small">
+            <h3>E5 Compliance</h3>
+            <p>Audităm licențele tale pentru a ne asigura că ești protejat legal și financiar.</p>
+        </div>
+
+        <div class="card card-wide">
+            <div style="display: flex; gap: 2rem; align-items: center; flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 250px;">
+                    <h3>Teams & Colaborare</h3>
+                    <p>Transformăm Teams dintr-o aplicație de chat într-un hub complet de lucru, cu integrare SharePoint și aplicații custom.</p>
+                </div>
+                <div style="background: var(--neutral-100); padding: 2rem; border-radius: 20px;">
+                    <p style="font-weight: 700; color: var(--primary-teal);">Suport Dedicat 24/7</p>
+                    <span style="font-size: 0.8rem;">Inclus în pachetele de administrare.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer style="padding: 4rem 6%; text-align: center; opacity: 0.6; font-size: 0.9rem;">
+    <p>&copy; 2026 NMS IT Solutions. Microsoft 365 Expert Partner.</p>
+</footer>
+
+</body>
+</html>
